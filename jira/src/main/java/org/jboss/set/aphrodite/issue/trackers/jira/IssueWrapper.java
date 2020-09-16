@@ -97,6 +97,10 @@ class IssueWrapper {
         issue.setLastUpdated(jiraIssue.getUpdateDate().toDate());
     }
 
+    private void setResoulutionDate(Issue issue, com.atlassian.jira.rest.client.api.domain.Issue jiraIssue) {
+//        issue.setResoulutionDate(jiraIssue.get);
+    }
+
     Issue jiraIssueToIssue(URL url, com.atlassian.jira.rest.client.api.domain.Issue jiraIssue) {
         JiraIssue issue = new JiraIssue(url);
         copy(url, jiraIssue, issue);

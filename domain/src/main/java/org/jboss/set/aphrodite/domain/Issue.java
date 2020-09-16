@@ -90,6 +90,8 @@ public class Issue {
 
     private Date lastUpdated;
 
+    private Date resoulutionDate;
+
     private IssueEstimation estimation;
 
     private List<Comment> comments;
@@ -304,6 +306,14 @@ public class Issue {
         this.lastUpdated = lastUpdated;
     }
 
+    public Optional<Date> getResolutionDate() {
+        return Optional.ofNullable(resoulutionDate);
+    }
+
+    public void setResoulutionDate(Date resoulutionDate) {
+        this.resoulutionDate = resoulutionDate;
+    }
+
     public Optional<IssueEstimation> getEstimation() {
         return Optional.ofNullable(estimation);
     }
@@ -353,6 +363,7 @@ public class Issue {
                 ", blocks=" + blocks +
                 ", creationDate=" + creationTime +
                 ", lastUpdated=" + lastUpdated +
+                ", resoulutionDate=" + resoulutionDate +
                 ", estimation=" + estimation +
                 ", #comments=" + comments.size() +
                 ", #patches=" + patches.size() +

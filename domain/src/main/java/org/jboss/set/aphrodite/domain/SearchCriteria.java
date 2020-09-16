@@ -42,11 +42,12 @@ public class SearchCriteria {
     private final Release release;
     private final Map<Stream, FlagStatus> streams;
     private final LocalDate lastUpdated;
+    private final LocalDate resolutionDate;
     private final Integer maxResults;
 
     private SearchCriteria(IssueStatus status, String assignee, String reporter, String product,
             String component, Stage stage, Release release, Map<Stream, FlagStatus> streams,
-            LocalDate lastUpdated, Integer maxResults) {
+            LocalDate lastUpdated, LocalDate resolutionDate, Integer maxResults) {
         this.status = status;
         this.assignee = assignee;
         this.reporter = reporter;
@@ -56,6 +57,7 @@ public class SearchCriteria {
         this.release = release;
         this.streams = streams;
         this.lastUpdated = lastUpdated;
+        this.resolutionDate = resolutionDate;
         this.maxResults = maxResults;
 
         if (lastUpdated != null && lastUpdated.isAfter(LocalDate.now()))
@@ -98,13 +100,17 @@ public class SearchCriteria {
         return Optional.ofNullable(lastUpdated);
     }
 
+    public Optional<LocalDate> getResolutionDate() {
+        return Optional.ofNullable(resolutionDate);
+    }
+
     public Optional<Integer> getMaxResults() {
         return Optional.ofNullable(maxResults);
     }
 
     public boolean isEmpty() {
         return status == null && assignee == null && reporter == null && product == null && component == null && stage == null
-                && release == null && streams == null && lastUpdated == null && maxResults == null;
+                && release == null && streams == null && lastUpdated == null && resolutionDate == null && maxResults == null;
     }
 
     public static class Builder {
@@ -118,6 +124,7 @@ public class SearchCriteria {
         private Release release;
         private Map<Stream, FlagStatus> streams;
         private LocalDate startDate;
+        private LocalDate resolutionDate;
         private Integer maxResults;
 
         public Builder setStatus(IssueStatus status) {
@@ -165,6 +172,11 @@ public class SearchCriteria {
             return this;
         }
 
+        public Builder setResolutionDate(LocalDate resolutionDate) {
+            this.resolutionDate = resolutionDate;
+            return this;
+        }
+
         public Builder setMaxResults(Integer maxResults) {
             this.maxResults = maxResults;
             return this;
@@ -172,7 +184,7 @@ public class SearchCriteria {
 
         public SearchCriteria build() {
             return new SearchCriteria(status, assignee, reporter, product, component, stage, release,
-                    streams, startDate, maxResults);
+                    streams, startDate, resolutionDate, maxResults);
         }
     }
 }
